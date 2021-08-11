@@ -19,21 +19,20 @@ class Search extends React.Component {
   };
 
   onSubmit = (e) => {
+    e.preventDefault();
+
     fetch(
       "https://serene-inlet-08860.herokuapp.com/api/v1/" + this.state.search
     )
-      .then(async (response) => await response.json())
+      .then((response) => response.json())
       .then((data) =>
         this.setState({
           url: data.fullurl,
           summary: data.summary,
           searchterm: this.state.search,
+          show: true,
         })
       );
-
-    e.preventDefault();
-
-    localStorage.setItem("show", true);
   };
 
   render() {

@@ -8,6 +8,7 @@ class Myhabits extends React.Component {
     super(props);
 
     this.state = {
+      habitnames: JSON.parse(localStorage.getItem("habitnames")) || [],
       habits: JSON.parse(localStorage.getItem("habits")) || [],
       show: false,
     };
@@ -22,15 +23,32 @@ class Myhabits extends React.Component {
   };
 
   createHabit = () => {
+    var now = new Date();
+    now.setDate(now.getDate() - 32);
+    var habit_temp = [];
+
+    for (let i = 0; i < 60; i++) {
+      var newdate = new Date(now.setDate(now.getDate() + 1));
+      newdate = newdate.toISOString().split("T")[0];
+      habit_temp.push({
+        date: newdate,
+        title: this.state.habit,
+        complete: false,
+      });
+    }
+
     this.setState(
       {
+        habitnames: [...this.state.habitnames, this.state.habit],
         show: false,
-        habits: [
-          ...this.state.habits,
-          { title: this.state.habit, complete: false },
-        ],
+        habit: "",
+        habits: [...this.state.habits, ...habit_temp],
       },
       () => {
+        localStorage.setItem(
+          "habitnames",
+          JSON.stringify(this.state.habitnames)
+        );
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
       }
     );
@@ -58,13 +76,13 @@ class Myhabits extends React.Component {
         </div>
 
         <div>
-          {this.state.habits.length !== 0 ? (
+          {this.state.habitnames.length !== 0 ? (
             <div id="habitlist">
-              {this.state.habits.map((habit, index) => {
+              {this.state.habitnames.map((habit, index) => {
                 return (
                   <HabitManage
                     key={index}
-                    title={habit.title}
+                    title={habit}
                     index={index}
                   ></HabitManage>
                 );

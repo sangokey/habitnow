@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0e86e1e1-33e8-4668-941a-848df54ba667" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habitnow-flask/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/habitnow-flask/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habitnow-react/src/pages/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/habitnow-react/src/pages/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habitnow-react/src/pages/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/habitnow-react/src/pages/Search.js" afterDir="false" />
-    </list>
+    <list default="true" id="0e86e1e1-33e8-4668-941a-848df54ba667" name="Default Changelist" comment="Added My Habits Page, edit, delete functionality." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,10 +36,34 @@
       <workItem from="1628486524111" duration="40000" />
       <workItem from="1628486901683" duration="5000" />
       <workItem from="1628561230088" duration="19000" />
+      <workItem from="1628639992893" duration="196000" />
     </task>
+    <task id="LOCAL-00001" summary="Added My Habits Page, edit, delete functionality.">
+      <created>1628640063054</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1628640063054</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added My Habits Page, edit, delete functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added My Habits Page, edit, delete functionality." />
   </component>
 </project>

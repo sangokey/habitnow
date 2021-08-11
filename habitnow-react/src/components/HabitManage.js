@@ -6,6 +6,7 @@ class HabitManage extends React.Component {
     super(props);
 
     this.state = {
+      habitnames: JSON.parse(localStorage.getItem("habitnames")) || [],
       habits: JSON.parse(localStorage.getItem("habits")) || [],
       showedit: false,
       showdelete: false,
@@ -31,20 +32,29 @@ class HabitManage extends React.Component {
 
   editHabit = () => {
     var habitstemp = JSON.parse(localStorage.getItem("habits"));
-    habitstemp.map((habit) => {
-      if (habit.title === this.props.title) {
-        habit.title = this.state.newname;
+    for (let i = 0; i < habitstemp.length; i++) {
+      if (habitstemp[i].title === this.props.title) {
+        habitstemp[i].title = this.state.newname;
       }
-    });
+    }
+
+    var habitnamestemp = JSON.parse(localStorage.getItem("habitnames"));
+    habitnamestemp[this.props.index] = this.state.newname;
+    console.log(habitnamestemp);
 
     this.setState(
       {
+        habitnames: habitnamestemp,
         showedit: false,
         habits: habitstemp,
         newname: "",
       },
       () => {
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
+        localStorage.setItem(
+          "habitnames",
+          JSON.stringify(this.state.habitnames)
+        );
       }
     );
 
@@ -53,16 +63,29 @@ class HabitManage extends React.Component {
 
   deleteHabit = () => {
     var habitstemp = JSON.parse(localStorage.getItem("habits"));
-    habitstemp.splice(this.props.index, 1);
+    console.log(habitstemp);
+    for (let i = 0; i < habitstemp.length; i++) {
+      if (habitstemp[i].title === this.props.title) {
+        habitstemp.splice(i, 60);
+      }
+    }
+
+    var habitsnametemp = JSON.parse(localStorage.getItem("habitnames"));
+    habitsnametemp.splice(this.props.index, 1);
 
     this.setState(
       {
         showdelete: false,
         habits: habitstemp,
+        habitsname: habitsnametemp,
         newname: "",
       },
       () => {
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
+        localStorage.setItem(
+          "habitnames",
+          JSON.stringify(this.state.habitsname)
+        );
       }
     );
 

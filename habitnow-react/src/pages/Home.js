@@ -2,27 +2,53 @@ import React from "react";
 import Header from "../components/Header";
 import Habit from "../components/Habit";
 import { Form, Modal, Button } from "react-bootstrap";
+import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location.state);
 
-    var today = new Date(),
-      date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
+    var today = new Date();
+    today.setDate(today.getDate() - 1);
+    var today_string = today.toISOString().split("T")[0];
+    localStorage.setItem("currentDate", today_string);
 
     this.state = {
-      currentDate: date,
+      todayDate: today,
+      currentDate: today,
+      currentDateString: today_string,
       habits: JSON.parse(localStorage.getItem("habits")) || [],
+      habitnames: JSON.parse(localStorage.getItem("habitnames")) || [],
       habit: "",
       show: false,
     };
   }
+
+  goBackDate = () => {
+    var newDate = new Date(
+      this.state.currentDate.setDate(this.state.currentDate.getDate() - 1)
+    );
+
+    this.setState({
+      currentDate: newDate,
+      currentDateString: newDate.toISOString().split("T")[0],
+    });
+
+    localStorage.setItem("currentDate", newDate.toISOString().split("T")[0]);
+  };
+
+  goFowardDate = () => {
+    var newDate = new Date(
+      this.state.currentDate.setDate(this.state.currentDate.getDate() + 1)
+    );
+
+    this.setState({
+      currentDate: newDate,
+      currentDateString: newDate.toISOString().split("T")[0],
+    });
+
+    localStorage.setItem("currentDate", newDate.toISOString().split("T")[0]);
+  };
 
   handleShow = () => {
     this.setState({ show: true });
@@ -33,19 +59,36 @@ class Home extends React.Component {
   };
 
   createHabit = () => {
+    var now = new Date();
+    now.setDate(now.getDate() - 32);
+    var habit_temp = [];
+
+    for (let i = 0; i < 60; i++) {
+      var newdate = new Date(now.setDate(now.getDate() + 1));
+      newdate = newdate.toISOString().split("T")[0];
+      habit_temp.push({
+        date: newdate,
+        title: this.state.habit,
+        complete: false,
+      });
+    }
+
     this.setState(
       {
+        habitnames: [...this.state.habitnames, this.state.habit],
         show: false,
         habit: "",
-        habits: [
-          ...this.state.habits,
-          { title: this.state.habit, complete: false },
-        ],
+        habits: [...this.state.habits, ...habit_temp],
       },
       () => {
+        localStorage.setItem(
+          "habitnames",
+          JSON.stringify(this.state.habitnames)
+        );
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
       }
     );
+    window.location.reload(false);
   };
 
   onChange = (e) => {
@@ -65,7 +108,14 @@ class Home extends React.Component {
             marginTop: 50,
           }}
         >
-          <h1 style={{ marginRight: 50 }}>{this.state.currentDate}</h1>
+          <ArrowLeft color="grey" size={30} onClick={this.goBackDate} />
+          <h1>{this.state.currentDateString}</h1>
+          <ArrowRight
+            color="grey"
+            size={30}
+            style={{ marginRight: 50 }}
+            onClick={this.goFowardDate}
+          />
           <Button onClick={this.handleShow}>Create Habit</Button>
         </div>
 
@@ -73,13 +123,16 @@ class Home extends React.Component {
           {this.state.habits.length !== 0 ? (
             <div id="habitlist">
               {this.state.habits.map((habit, index) => {
-                return (
-                  <Habit
-                    key={index}
-                    title={habit.title}
-                    complete={habit.complete}
-                  ></Habit>
-                );
+                if (habit.date === this.state.currentDateString) {
+                  return (
+                    <Habit
+                      key={index}
+                      date={this.state.currentDate}
+                      title={habit.title}
+                      complete={habit.complete}
+                    ></Habit>
+                  );
+                }
               })}
             </div>
           ) : (
