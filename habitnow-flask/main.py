@@ -18,7 +18,6 @@ def index():
 def users_get_post():
 
     # Create a User
-
     if request.method == 'OPTIONS':
         return build_preflight_response()
 
@@ -41,6 +40,7 @@ def users_get_post():
         for e in results:
             e["id"] = e.key.id
         return (json.dumps(results), 200)
+
     else:
         return 'Method not recognized'
 

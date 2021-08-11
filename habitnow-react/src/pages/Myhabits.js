@@ -1,25 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
-import Habit from "../components/Habit";
+import HabitManage from "../components/HabitManage";
 import { Form, Modal, Button } from "react-bootstrap";
 
-class Home extends React.Component {
+class Myhabits extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.location.state);
-
-    var today = new Date(),
-      date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
 
     this.state = {
-      currentDate: date,
       habits: JSON.parse(localStorage.getItem("habits")) || [],
-      habit: "",
       show: false,
     };
   }
@@ -36,7 +25,6 @@ class Home extends React.Component {
     this.setState(
       {
         show: false,
-        habit: "",
         habits: [
           ...this.state.habits,
           { title: this.state.habit, complete: false },
@@ -74,11 +62,11 @@ class Home extends React.Component {
             <div id="habitlist">
               {this.state.habits.map((habit, index) => {
                 return (
-                  <Habit
+                  <HabitManage
                     key={index}
                     title={habit.title}
-                    complete={habit.complete}
-                  ></Habit>
+                    index={index}
+                  ></HabitManage>
                 );
               })}
             </div>
@@ -119,4 +107,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default Myhabits;

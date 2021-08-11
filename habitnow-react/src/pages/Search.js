@@ -8,6 +8,9 @@ class Search extends React.Component {
     this.state = {
       show: localStorage.getItem("show") || false,
       search: "",
+      searchterm: "",
+      url: "",
+      summary: "",
     };
   }
 
@@ -16,6 +19,20 @@ class Search extends React.Component {
   };
 
   onSubmit = (e) => {
+    fetch(
+      "https://serene-inlet-08860.herokuapp.com/api/v1/" + this.state.search
+    )
+      .then(async (response) => await response.json())
+      .then((data) =>
+        this.setState({
+          url: data.fullurl,
+          summary: data.summary,
+          searchterm: this.state.search,
+        })
+      );
+
+    e.preventDefault();
+
     localStorage.setItem("show", true);
   };
 
@@ -37,23 +54,10 @@ class Search extends React.Component {
 
         {this.state.show && (
           <div style={{ marginLeft: 50 }}>
-            <a href="https://en.wikipedia.org/wiki/Reading">
-              <h1>Reading</h1>
+            <a href={this.state.url}>
+              <h1>{this.state.searchterm}</h1>
             </a>
-            <p>
-              Reading is the process of taking in the sense or meaning of
-              letters, symbols, etc., especially by sight or touch. <br />
-              For educators and researchers, reading is a multifaceted process
-              involving such areas as word recognition, orthography (spelling),
-              alphabetics, phonics, phonemic awareness, vocabulary,
-              comprehension, fluency, and motivation. <br />
-              Other types of reading and writing, such as pictograms (e.g., a
-              hazard symbol and an emoji), are not based on speech-based writing
-              systems. <br />
-              The common link is the interpretation of symbols to extract the
-              meaning from the visual notations or tactile signals (as in the
-              case of Braille).
-            </p>
+            <p>{this.state.summary}</p>
           </div>
         )}
       </div>

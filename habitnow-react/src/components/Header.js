@@ -20,6 +20,7 @@ class Header extends React.Component {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link href="/myhabits">My Habits</Nav.Link>
               <Nav.Link href="/search" onClick={this.resetSearch}>
                 Search Habits
               </Nav.Link>
