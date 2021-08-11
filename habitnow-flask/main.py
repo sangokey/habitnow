@@ -17,10 +17,10 @@ def index():
 @app.route('/users', methods=['GET', 'POST'])
 def users_get_post():
 
-    # Create a User
     if request.method == 'OPTIONS':
         return build_preflight_response()
 
+    # Create a User
     elif request.method == 'POST':
         content = request.get_json()
         new_user = datastore.entity.Entity(

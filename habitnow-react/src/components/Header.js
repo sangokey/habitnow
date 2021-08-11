@@ -1,5 +1,11 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Tooltip,
+  OverlayTrigger,
+} from "react-bootstrap";
 
 class Header extends React.Component {
   constructor(props) {
@@ -11,6 +17,24 @@ class Header extends React.Component {
     localStorage.removeItem("show");
   };
 
+  renderHome = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Complete Today's Tasks and See Your Progress!
+    </Tooltip>
+  );
+
+  renderHabits = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Easily Create, Edit, and Delete Existing Habits!
+    </Tooltip>
+  );
+
+  searchHabits = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Learn about potential habits!
+    </Tooltip>
+  );
+
   render() {
     return (
       <Navbar bg="light" expand="lg">
@@ -19,11 +43,31 @@ class Header extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/myhabits">My Habits</Nav.Link>
-              <Nav.Link href="/search" onClick={this.resetSearch}>
-                Search Habits
-              </Nav.Link>
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderHome}
+              >
+                <Nav.Link href="/home">Home</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.renderHabits}
+              >
+                <Nav.Link href="/myhabits">My Habits</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={this.searchHabits}
+              >
+                <Nav.Link href="/search" onClick={this.resetSearch}>
+                  Search Habits
+                </Nav.Link>
+              </OverlayTrigger>
             </Nav>
             <Navbar.Text>
               Signed in as: {localStorage.getItem("user")}

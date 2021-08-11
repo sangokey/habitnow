@@ -10,7 +10,7 @@ class HabitManage extends React.Component {
       habits: JSON.parse(localStorage.getItem("habits")) || [],
       showedit: false,
       showdelete: false,
-      newname: this.props.title,
+      newhabitname: this.props.title,
     };
   }
 
@@ -34,12 +34,12 @@ class HabitManage extends React.Component {
     var habitstemp = JSON.parse(localStorage.getItem("habits"));
     for (let i = 0; i < habitstemp.length; i++) {
       if (habitstemp[i].title === this.props.title) {
-        habitstemp[i].title = this.state.newname;
+        habitstemp[i].title = this.state.newhabitname;
       }
     }
 
     var habitnamestemp = JSON.parse(localStorage.getItem("habitnames"));
-    habitnamestemp[this.props.index] = this.state.newname;
+    habitnamestemp[this.props.index] = this.state.newhabitname;
     console.log(habitnamestemp);
 
     this.setState(
@@ -47,7 +47,7 @@ class HabitManage extends React.Component {
         habitnames: habitnamestemp,
         showedit: false,
         habits: habitstemp,
-        newname: "",
+        newhabitname: "",
       },
       () => {
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
@@ -78,7 +78,7 @@ class HabitManage extends React.Component {
         showdelete: false,
         habits: habitstemp,
         habitsname: habitsnametemp,
-        newname: "",
+        newhabitname: "",
       },
       () => {
         localStorage.setItem("habits", JSON.stringify(this.state.habits));
@@ -122,9 +122,9 @@ class HabitManage extends React.Component {
               <Form.Label>Habit Name: </Form.Label>
               <Form.Control
                 type="text"
-                name="newname"
+                name="newhabitname"
                 onChange={this.onChange}
-                value={this.state.newname}
+                value={this.state.newhabitname}
                 placeholder={this.props.title}
               />
             </Form.Group>

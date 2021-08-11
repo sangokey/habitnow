@@ -40,7 +40,6 @@ class Search extends React.Component {
       <div>
         <Header />
         <h1>Search for Habits</h1>
-
         <form onSubmit={this.onSubmit}>
           <label>
             Search anything:
@@ -48,9 +47,7 @@ class Search extends React.Component {
           </label>
           <input type="submit" value="Search" />
         </form>
-
         <br />
-
         {this.state.show && (
           <div style={{ marginLeft: 50 }}>
             <a href={this.state.url}>
